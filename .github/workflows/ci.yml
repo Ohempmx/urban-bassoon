@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - 'docs-content/**'
+      - '*.md'
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'docs-content/**'
+      - '*.md'
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [10.0.x, 10.x, 12.0.x, 12.x, 14.0.x, 14.x, 15.x, 16.0.x, 16.x, 17.x]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: |
+          npm install --ignore-scripts
+      - name: Check treport and import-jsx versions
+        run: |
+          npm ls treport import-jsx @isaacs/import-jsx || true
+          cat /home/runner/work/node-tap/node-tap/node_modules/treport/index.js || true
+      - name: Run tests
+        run: |
+          npm test --color=always -- -c -t0
