@@ -1,0 +1,40 @@
+TAP version 13
+    # Subtest: end end
+    1..0
+ok 1 - end end ___/# time=[0-9.]+(ms)?/~~~
+
+    # Subtest: end then async end
+    1..0
+ok 2 - end then async end ___/# time=[0-9.]+(ms)?/~~~
+
+    # Subtest: double async end
+    1..0
+ok 3 - double async end ___/# time=[0-9.]+(ms)?/~~~
+
+not ok 4 - Error: test end() method called more than once
+  ---
+  {"message":"Error: test end() method called more than once","test":"end then async end"}
+  ...
+    # Subtest: plan end
+    1..1
+    ok 1 - this is fine
+ok 5 - plan end ___/# time=[0-9.]+(ms)?/~~~
+
+    # Subtest: plan then async end
+    1..1
+    ok 1 - this is fine
+ok 6 - plan then async end ___/# time=[0-9.]+(ms)?/~~~
+
+    # Subtest: plan end end
+    1..1
+    ok 1 - this is fine
+ok 7 - plan end end ___/# time=[0-9.]+(ms)?/~~~
+
+not ok 8 - Error: test end() method called more than once
+  ---
+  {"message":"Error: test end() method called more than once","test":"double async end"}
+  ...
+1..8
+# failed 2 of 8 tests
+___/# time=[0-9.]+(ms)?/~~~
+
